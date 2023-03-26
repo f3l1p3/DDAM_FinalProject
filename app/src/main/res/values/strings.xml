@@ -7,8 +7,12 @@
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="invalid_nickname">Not a valid nickname</string>
     <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_lastname">Not a valid lastname</string>
+    <string name="invalid_email">Not a valid email</string>
     <string name="invalid_password">Password must be >5 characters</string>
+    <string name="register_failed">"Register failed"</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_feed">FeedActivity</string>
     <string name="title_activity_register">RegisterActivity</string>

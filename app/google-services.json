@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "486073362423",
+    "project_id": "ddam-instapp",
+    "storage_bucket": "ddam-instapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486073362423:android:59db42ec760bf3bdeff0f2",
+        "android_client_info": {
+          "package_name": "cl.puc.ing.ddam.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486073362423-vnnv4hune1b3eo87jcr1ph8853rasoru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0NKhlPakDiIza_6TbP1XOB62qqc-bftk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486073362423-vnnv4hune1b3eo87jcr1ph8853rasoru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

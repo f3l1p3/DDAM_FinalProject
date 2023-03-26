@@ -16,7 +16,11 @@ import androidx.lifecycle.ViewModelProvider
 import cl.puc.ing.ddam.finalproject.MainActivity
 import cl.puc.ing.ddam.finalproject.R
 import cl.puc.ing.ddam.finalproject.databinding.ActivityLoginBinding
+import cl.puc.ing.ddam.finalproject.ui.ViewModelFactory
 import cl.puc.ing.ddam.finalproject.ui.register.RegisterActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -35,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         val loading = binding.loading
         val registerBtn = binding.registerBtn
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this, ViewModelFactory())[LoginViewModel::class.java]
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -85,25 +89,31 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
+                        CoroutineScope(Dispatchers.Main).launch {
+                            loginViewModel.login(
+                                username.text.toString(),
+                                password.text.toString()
+                            )
+                        }
+
                 }
                 false
             }
+        }
 
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+        login.setOnClickListener {
+            loading.visibility = View.VISIBLE
+            CoroutineScope(Dispatchers.Main).launch {
+                loginViewModel.login(
+                    username.text.toString(),
+                    password.text.toString()
+                )
             }
+        }
 
-            registerBtn?.setOnClickListener {
-
-                val intent = Intent(it.context, RegisterActivity::class.java)
-
-                startActivity(intent)
-            }
+        registerBtn?.setOnClickListener {
+            val intent = Intent(it.context, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
