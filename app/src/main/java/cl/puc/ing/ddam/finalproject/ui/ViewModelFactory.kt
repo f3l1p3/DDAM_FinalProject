@@ -6,6 +6,7 @@ import cl.puc.ing.ddam.finalproject.data.LoginDataSource
 import cl.puc.ing.ddam.finalproject.data.LoginRepository
 import cl.puc.ing.ddam.finalproject.data.UserDataSource
 import cl.puc.ing.ddam.finalproject.data.UserRepository
+import cl.puc.ing.ddam.finalproject.ui.feed.FeedViewModel
 import cl.puc.ing.ddam.finalproject.ui.login.LoginViewModel
 import cl.puc.ing.ddam.finalproject.ui.register.RegisterViewModel
 
@@ -31,6 +32,11 @@ class ViewModelFactory : ViewModelProvider.Factory {
                                                 ,loginDataSource = LoginDataSource())
             ) as T
         }
+
+        if (modelClass.isAssignableFrom(FeedViewModel::class.java)) {
+            return FeedViewModel() as T
+        }
+
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

@@ -13,10 +13,10 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import cl.puc.ing.ddam.finalproject.MainActivity
 import cl.puc.ing.ddam.finalproject.R
 import cl.puc.ing.ddam.finalproject.databinding.ActivityLoginBinding
 import cl.puc.ing.ddam.finalproject.ui.ViewModelFactory
+import cl.puc.ing.ddam.finalproject.ui.feed.FeedActivity
 import cl.puc.ing.ddam.finalproject.ui.register.RegisterActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -127,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
 
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, FeedActivity::class.java)
 
         startActivity(intent)
     }

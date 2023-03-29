@@ -13,16 +13,20 @@
         android:theme="@style/Theme.DDAMFinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".ui.post.AddPostActivity"
+            android:exported="false"
+            android:label="@string/title_activity_post"
+            android:parentActivityName=".ui.feed.FeedActivity"
+             />
+        <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".ui.login.LoginActivity"
-           />
+            android:parentActivityName=".ui.login.LoginActivity" />
         <activity
             android:name=".ui.feed.FeedActivity"
             android:exported="false"
-            android:label="@string/title_activity_feed"
-           />
+            android:label="@string/title_activity_feed" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
@@ -35,8 +39,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:parentActivityName=".ui.login.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.login.LoginActivity" />
     </application>
 
 </manifest>
