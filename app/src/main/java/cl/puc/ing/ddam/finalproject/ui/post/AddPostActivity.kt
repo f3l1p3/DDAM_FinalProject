@@ -1,7 +1,9 @@
 package cl.puc.ing.ddam.finalproject.ui.post
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
@@ -28,6 +30,11 @@ class AddPostActivity : AppCompatActivity() {
     private lateinit var viewModel: AddPostViewModel
     private lateinit var imageview: ImageView
 
+    private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { imageBitmap: Bitmap? ->
+        imageBitmap?.let {
+            imageview.setImageBitmap(it)
+        }
+    }
     private var imagePickerActivityResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result != null) {
@@ -92,7 +99,25 @@ class AddPostActivity : AppCompatActivity() {
             // here item is type of image
             galleryIntent.type = "image/*"
             // ActivityResultLauncher callback
-            imagePickerActivityResult.launch(galleryIntent)
+
+
+            val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Select an option")
+            builder.setItems(options) { dialog, item ->
+                when {
+                    options[item] == "Take Photo" -> {
+                        takePictureLauncher.launch(null)
+                    }
+                    options[item] == "Choose from Gallery" -> {
+                        //pickImageLauncher.launch("image/*")
+                        imagePickerActivityResult.launch(galleryIntent)
+                    }
+                    options[item] == "Cancel" -> dialog.dismiss()
+                }
+            }
+            builder.show()
+
         }
 
         postButton.setOnClickListener {

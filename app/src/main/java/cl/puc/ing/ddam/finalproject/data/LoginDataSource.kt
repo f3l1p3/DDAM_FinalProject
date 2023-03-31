@@ -29,7 +29,8 @@ class LoginDataSource {
                     Log.d("Login", "User found. Data: $data ")
                     val email= data?.get("email").toString()
                     val userID=data?.get("user_id").toString()
-                    val user=LoggedInUser(userID, email)
+                    val displayName=""
+                    val user=LoggedInUser(userID, displayName, email)
                     return Result.Success(user)
                 }
 

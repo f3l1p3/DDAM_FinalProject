@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cl.puc.ing.ddam.finalproject.R
 import cl.puc.ing.ddam.finalproject.databinding.ActivityLoginBinding
+import cl.puc.ing.ddam.finalproject.session.SessionManager
 import cl.puc.ing.ddam.finalproject.ui.ViewModelFactory
 import cl.puc.ing.ddam.finalproject.ui.feed.FeedActivity
 import cl.puc.ing.ddam.finalproject.ui.register.RegisterActivity
@@ -26,12 +27,22 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sessionManager = SessionManager(this)
+
+        if (sessionManager.isLoggedIn()) {
+            // Redirect the user to the main activity
+            val intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         val username = binding.username
         val password = binding.password
@@ -126,6 +137,9 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+        // Store the login information
+        sessionManager.setLoggedIn(true)
+        sessionManager.setUsername(displayName)
 
         val intent = Intent(this, FeedActivity::class.java)
 
