@@ -131,7 +131,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
+
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",
@@ -140,6 +140,7 @@ class LoginActivity : AppCompatActivity() {
         // Store the login information
         sessionManager.setLoggedIn(true)
         sessionManager.setUsername(displayName)
+        sessionManager.setUserId(model.userId)
 
         val intent = Intent(this, FeedActivity::class.java)
 

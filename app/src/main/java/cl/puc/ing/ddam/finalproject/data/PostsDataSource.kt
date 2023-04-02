@@ -15,7 +15,7 @@ class PostsDataSource {
 
     private var storageRef = Firebase.storage("gs://ddam-instapp.appspot.com").reference
     private val db = Firebase.firestore
-    suspend fun addPost(uploadImageView: ImageView, postText: String) {
+    suspend fun addPost(uploadImageView: ImageView, postText: String, userId: String?) {
         // get the bitmap from the ImageView
         val bitmap = (uploadImageView.drawable as BitmapDrawable).bitmap
 
@@ -40,6 +40,7 @@ class PostsDataSource {
             "image_url" to imageURL,
             "text" to postText,
             "updated_dt" to FieldValue.serverTimestamp(),
+            "user_id" to userId
         )
         docRef.set(post).await()
 

@@ -4,7 +4,7 @@ import android.widget.ImageView
 
 class PostsRepository(private val postsDataSource: PostsDataSource) {
 
-    suspend fun addPost(imageview: ImageView, postText: String) {
-        postsDataSource.addPost(imageview,postText)
+    suspend fun addPost(imageview: ImageView, postText: String, userId: String?) {
+        postsDataSource.addPost(imageview,postText,userId)
     }
 }

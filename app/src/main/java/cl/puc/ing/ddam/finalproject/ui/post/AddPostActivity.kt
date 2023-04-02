@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cl.puc.ing.ddam.finalproject.databinding.ActivityAddPostBinding
+import cl.puc.ing.ddam.finalproject.session.SessionManager
 import cl.puc.ing.ddam.finalproject.ui.ViewModelFactory
 import cl.puc.ing.ddam.finalproject.ui.feed.FeedActivity
 import com.bumptech.glide.Glide
@@ -29,6 +30,7 @@ class AddPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPostBinding
     private lateinit var viewModel: AddPostViewModel
     private lateinit var imageview: ImageView
+    private lateinit var sessionManager: SessionManager
 
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { imageBitmap: Bitmap? ->
         imageBitmap?.let {
@@ -54,6 +56,8 @@ class AddPostActivity : AppCompatActivity() {
 
         binding = ActivityAddPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sessionManager = SessionManager(this)
 
         val uploadImageBtn=binding.uploadImageButton
         val postButton=binding.postButton
@@ -82,7 +86,7 @@ class AddPostActivity : AppCompatActivity() {
             if (addPostResult.success != null) {
                 Toast.makeText(
                     applicationContext,
-                    "Register successful",
+                    "Post added successfully",
                     Toast.LENGTH_LONG
                 ).show()
                 goToFeedScreen()
@@ -122,7 +126,7 @@ class AddPostActivity : AppCompatActivity() {
 
         postButton.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                viewModel.addPost(imageview,postText.text.toString())
+                viewModel.addPost(imageview,postText.text.toString(),sessionManager.getUserId())
             }
         }
 

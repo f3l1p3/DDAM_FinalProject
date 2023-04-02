@@ -17,26 +17,32 @@ class LoginDataSource {
     suspend fun login(username: String, password: String): Result<LoggedInUser> {
         try {
            
-            val querySnapshot: QuerySnapshot=db.collection("logins")
-                                                .whereEqualTo("email",username)
+            val loginQuerySnapshot: QuerySnapshot=db.collection("logins")
+                                                .whereEqualTo("email",username.lowercase())
                                                 .whereEqualTo("password",password)
                                                 .get().await()
 
-            if(!querySnapshot.isEmpty){
-                val docs=querySnapshot.documents
-                for (doc in docs) {
-                    val data = doc.data
-                    Log.d("Login", "User found. Data: $data ")
-                    val email= data?.get("email").toString()
-                    val userID=data?.get("user_id").toString()
-                    val displayName=""
-                    val user=LoggedInUser(userID, displayName, email)
-                    return Result.Success(user)
-                }
-
+            if(loginQuerySnapshot.isEmpty){
+                Log.d("Login", "Login not found")
+                throw Exception("Login not Found")
             }
-            Log.d("Login", "User not found")
-            throw Exception("User not Found")
+
+            val login = loginQuerySnapshot.documents[0].data
+            Log.d("Login", "Login found. Data: $login ")
+            val email= login?.get("email").toString()
+            val userID=login?.get("user_id").toString()
+
+            val docSnapshot=db.collection("users").document(userID).get().await()
+
+            if(!docSnapshot.exists()){
+                Log.d("Login", "User not found")
+                throw Exception("User not Found")
+            }
+
+            val user = docSnapshot.data
+            Log.d("Login", "User found. Data: $user ")
+            val displayName= user?.get("nickname").toString()
+            return Result.Success(LoggedInUser(userID, displayName, email))
 
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))

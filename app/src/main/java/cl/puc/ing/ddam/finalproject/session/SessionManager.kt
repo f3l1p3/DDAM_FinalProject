@@ -23,6 +23,14 @@ class SessionManager(context: Context) {
         sharedPreferences.edit().putString("username", username).apply()
     }
 
+    fun getUserId(): String? {
+        return sharedPreferences.getString("userId", null)
+    }
+
+    fun setUserId(userId: String) {
+        sharedPreferences.edit().putString("userId", userId).apply()
+    }
+
     fun clearSession() {
         sharedPreferences.edit().clear().apply()
     }
