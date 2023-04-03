@@ -13,7 +13,7 @@ import cl.puc.ing.ddam.finalproject.databinding.ActivityFeedBinding
 import cl.puc.ing.ddam.finalproject.session.SessionManager
 import cl.puc.ing.ddam.finalproject.ui.ViewModelFactory
 import cl.puc.ing.ddam.finalproject.ui.login.LoginActivity
-import cl.puc.ing.ddam.finalproject.ui.post.AddPostActivity
+import cl.puc.ing.ddam.finalproject.ui.menu.BottomNavigationHandler
 
 class FeedActivity : AppCompatActivity() {
 
@@ -23,10 +23,11 @@ class FeedActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PostsAdapter
     private lateinit var sessionManager: SessionManager
+    private lateinit var navigationHandler: BottomNavigationHandler
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = ActivityFeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -35,18 +36,20 @@ class FeedActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, ViewModelFactory())[FeedViewModel::class.java]
 
+        val navigationView = binding.bottomNavigationMenu
+        navigationHandler = BottomNavigationHandler(this, navigationView)
+        navigationHandler.setup()
 
         adapter = PostsAdapter(viewModel.options)
-
         recyclerView = binding.listView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        val addPostBtn=binding.addPostBtn
-        addPostBtn.setOnClickListener {
-            val intent = Intent(it.context, AddPostActivity::class.java)
-            startActivity(intent)
-        }
+//        val addPostBtn=binding.addPostBtn
+//        addPostBtn.setOnClickListener {
+//            val intent = Intent(it.context, AddPostActivity::class.java)
+//            startActivity(intent)
+//        }
 
     }
 
@@ -65,7 +68,7 @@ class FeedActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        menuInflater.inflate(R.menu.top_menu, menu)
         return true
     }
 

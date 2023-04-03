@@ -1,8 +1,11 @@
 package cl.puc.ing.ddam.finalproject.ui.feed
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import cl.puc.ing.ddam.finalproject.R
+import cl.puc.ing.ddam.finalproject.ui.feed.post.PostDetailActivity
 import com.bumptech.glide.Glide
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -17,6 +20,16 @@ class PostsAdapter(options: FirestoreRecyclerOptions<PostItem>) : FirestoreRecyc
         holder.postTextVW.text=model.text
 
         Glide.with(holder.itemView.context).load(model.image_url).into(holder.postImageVW)
+
+        holder.itemView.setOnClickListener { goToPostDetailActivity(holder.itemView.context,model) }
+    }
+
+    private fun goToPostDetailActivity(context: Context?, model: PostItem) {
+        val intent = Intent(context, PostDetailActivity::class.java)
+
+        intent.putExtra("POST_DATA", model)
+
+        context?.startActivity(intent)
     }
 
 }

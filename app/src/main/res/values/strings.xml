@@ -17,4 +17,9 @@
     <string name="title_activity_feed">Feed</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_post">Add Post</string>
+    <string name="title_activity_post_details">Post Details</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Users</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_add_post">Post</string>
 </resources>
