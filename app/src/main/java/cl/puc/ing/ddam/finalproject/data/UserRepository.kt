@@ -1,5 +1,7 @@
 package cl.puc.ing.ddam.finalproject.data
 
+import cl.puc.ing.ddam.finalproject.data.model.UserItem
+
 class UserRepository(private val userDataSource: UserDataSource,
                      private val loginDataSource: LoginDataSource) {
 
@@ -15,5 +17,9 @@ class UserRepository(private val userDataSource: UserDataSource,
 
     suspend fun followUser(userToFollow: String, userId: String) {
         userDataSource.followUser(userToFollow,userId)
+    }
+
+    suspend fun getUser(userId: String): UserItem? {
+        return userDataSource.getUser(userId)
     }
 }

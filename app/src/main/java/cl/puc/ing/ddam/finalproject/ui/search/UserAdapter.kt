@@ -8,19 +8,17 @@ import cl.puc.ing.ddam.finalproject.R
 import cl.puc.ing.ddam.finalproject.data.LoginDataSource
 import cl.puc.ing.ddam.finalproject.data.UserDataSource
 import cl.puc.ing.ddam.finalproject.data.UserRepository
-import cl.puc.ing.ddam.finalproject.ui.feed.PostItem
-import cl.puc.ing.ddam.finalproject.ui.feed.PostViewHolder
-import com.bumptech.glide.Glide
+import cl.puc.ing.ddam.finalproject.data.model.UserItem
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-class UserAdapter(options: FirestoreRecyclerOptions<UserItem>,val userId:String) : FirestoreRecyclerAdapter<UserItem, UserViewHolder>(options) {
-
-
+class UserAdapter(options: FirestoreRecyclerOptions<UserItem>, val userId:String) : FirestoreRecyclerAdapter<UserItem, UserViewHolder>(options) {
     val userRepo = UserRepository(UserDataSource(), LoginDataSource())
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.activity_search_item,parent,false)
@@ -29,6 +27,9 @@ class UserAdapter(options: FirestoreRecyclerOptions<UserItem>,val userId:String)
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int, model: UserItem) {
         holder.userNicknameTextVW.text=model.nickName
+
+        val user: UserItem = runBlocking { userRepo.getUser(userId)!!}
+        holder.followBtn.isEnabled= user.followers?.stream()!!.noneMatch { it.user_id==model.userId }
 
         holder.followBtn.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
