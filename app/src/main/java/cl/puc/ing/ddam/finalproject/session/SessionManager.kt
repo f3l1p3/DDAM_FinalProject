@@ -23,8 +23,8 @@ class SessionManager(context: Context) {
         sharedPreferences.edit().putString("username", username).apply()
     }
 
-    fun getUserId(): String? {
-        return sharedPreferences.getString("userId", null)
+    fun getUserId(): String {
+        return sharedPreferences.getString("userId", null) ?: throw Exception("userid not found")
     }
 
     fun setUserId(userId: String) {

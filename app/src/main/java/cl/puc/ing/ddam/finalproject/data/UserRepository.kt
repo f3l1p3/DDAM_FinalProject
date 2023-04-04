@@ -12,4 +12,8 @@ class UserRepository(private val userDataSource: UserDataSource,
         return loginDataSource.createLogin(email,password,userId)
 
     }
+
+    suspend fun followUser(userToFollow: String, userId: String) {
+        userDataSource.followUser(userToFollow,userId)
+    }
 }

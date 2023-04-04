@@ -12,6 +12,7 @@ import cl.puc.ing.ddam.finalproject.ui.feed.FeedViewModel
 import cl.puc.ing.ddam.finalproject.ui.login.LoginViewModel
 import cl.puc.ing.ddam.finalproject.ui.post.AddPostViewModel
 import cl.puc.ing.ddam.finalproject.ui.register.RegisterViewModel
+import cl.puc.ing.ddam.finalproject.ui.search.SearchViewModel
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
@@ -38,6 +39,10 @@ class ViewModelFactory : ViewModelProvider.Factory {
 
         if (modelClass.isAssignableFrom(FeedViewModel::class.java)) {
             return FeedViewModel() as T
+        }
+
+        if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+            return SearchViewModel() as T
         }
 
         if (modelClass.isAssignableFrom(AddPostViewModel::class.java)) {

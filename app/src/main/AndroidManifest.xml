@@ -13,11 +13,20 @@
         android:theme="@style/Theme.DDAMFinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".ui.search.SearchActivity"
+            android:exported="false"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".ui.feed.FeedActivity" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".ui.feed.FeedActivity" />
+        <activity
             android:name=".ui.post.AddPostActivity"
             android:exported="false"
             android:label="@string/title_activity_post"
-            android:parentActivityName=".ui.feed.FeedActivity"
-             />
+            android:parentActivityName=".ui.feed.FeedActivity" />
         <activity
             android:name=".ui.feed.post.PostDetailActivity"
             android:exported="false"

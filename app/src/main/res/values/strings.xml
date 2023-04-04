@@ -22,4 +22,6 @@
     <string name="menu_search">Users</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_add_post">Post</string>
+    <string name="title_activity_search">Search/Follow</string>
+    <string name="title_activity_profile">Profile</string>
 </resources>
